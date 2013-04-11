@@ -1,0 +1,1 @@
+@File(Name="/usr/opt/file", func="gb.run")
