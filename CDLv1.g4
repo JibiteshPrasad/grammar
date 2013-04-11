@@ -5,15 +5,35 @@
 
 grammar CDLv1;
 
+model
+    : (annotation modelDeclaration)* EOF
+    ;
+
 annotation
   : '@' annotationName ( '(' ( elementValuePairs | elementValue )? ')' )?
   ;
 
-
-
 annotationName
   : Identifier ('.' Identifier)*
   ;
+
+modelDeclaration
+  : 'model' Identifier ('extends' modelType)? modelBody
+  ;
+
+modelType
+    : Identifier
+    ;
+
+modelBody
+    : '{' fieldDeclaration* '}'
+    ;
+
+fieldDeclaration
+    : (primitiveType) Identifier LINE_TERMINATOR
+    ;
+
+
 
 elementValuePairs
   : elementValuePair (',' elementValuePair)*
@@ -25,7 +45,7 @@ elementValuePair
 
 elementValue
   : expression
-  | annotation
+  | literal
   | elementValueArrayInitializer
   ;
 
@@ -77,8 +97,20 @@ BooleanLiteral
   ;
 
 Identifier
-  : Letter (Letter|DomainIDDigit)*
+  : [a-zA-Z]+ ([a-zA-Z])*
   ;
+
+primitiveType
+    : 'boolean'
+    | 'char'
+    | 'byte'
+    | 'short'
+    | 'int'
+    | 'long'
+    | 'float'
+    | 'double'
+    | 'String'
+    ;
 
 // LEXER =====================================================
 
@@ -90,19 +122,6 @@ DigitList
     : Digit (Digit)*
     ;
 
-fragment
-BinaryDigit : ('0'|'1') ;
-
-fragment
-HexDigits : HexDigit ('_'* HexDigit)* ;
-
-fragment
-HexDigit : (Digit|'a'..'f'|'A'..'F') ;
-
-fragment
-Digit : '0'..'9' ;
-
-
 CharacterLiteral
   : '\'' ( EscapeSequence | ~('\''|'\\') ) '\''
   ;
@@ -111,24 +130,12 @@ StringLiteral
   : '"' ( EscapeSequence | ~('\\'|'"') )* '"'
   ;
 
+fragment Digit 
+    : '0'..'9' ;
+
 fragment EscapeSequence
   : '\\' ('b'|'t'|'n'|'f'|'r'|'\"'|'\''|'\\')
-  | UnicodeEscape
-  | OctalEscape
   ;
-
-fragment OctalEscape
-  : '\\' ('0'..'3') ('0'..'7') ('0'..'7')
-  | '\\' ('0'..'7') ('0'..'7')
-  | '\\' ('0'..'7')
-  ;
-
-fragment UnicodeEscape
-  : '\\' 'u' HexDigit HexDigit HexDigit HexDigit
-  ;
-
-fragment FloatTypeSuffix : ('f'|'F'|'d'|'D') ;
-
 
 fragment Letter
     : [a-zA-Z]+
@@ -149,3 +156,7 @@ COMMENT
 LINE_COMMENT
   : '//' ~[\r\n]* -> channel(HIDDEN)
   ;
+
+LINE_TERMINATOR
+    : ';'
+    ;

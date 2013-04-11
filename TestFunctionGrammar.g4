@@ -85,6 +85,7 @@ primitiveType
     | 'float'
     | 'double'
     | 'String'
+    | 'List'
     ;
 
 WS

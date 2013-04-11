@@ -1,4 +1,5 @@
-/*@File(Name=/usr/opt/file, func=gb.run)*/
+@File(Name="/usr/opt/file", func="gb.run")
+
 model Person{
 	int ID;
 	int expense;
