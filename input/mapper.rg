@@ -1,0 +1,1 @@
+@Mapper(Context=MyContext)
