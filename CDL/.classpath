@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="generated"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
+	<classpathentry kind="lib" path="E:/workspace/antlr/grammar/lib/codemodel-2.4-javadoc.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/antlr/grammar/lib/codemodel-2.4-sources.jar"/>
+	<classpathentry kind="lib" path="E:/antlr/antlr-4.0-complete.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/antlr/grammar/lib/slf4j-1.7.5/slf4j-api-1.7.5.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/antlr/grammar/lib/logback-1.0.11/logback-classic-1.0.11.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/antlr/grammar/lib/logback-1.0.11/logback-core-1.0.11.jar"/>
+	<classpathentry kind="lib" path="E:/workspace/antlr/grammar/lib/codemodel-2.4.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
