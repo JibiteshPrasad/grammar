@@ -26,7 +26,11 @@ modelType
     ;
 
 modelBody
-    : '{' fieldDeclaration* '}'
+    : '{' fieldDeclarationList? '}'
+    ;
+
+fieldDeclarationList
+    : fieldDeclaration (fieldDeclaration)* 
     ;
 
 fieldDeclaration
@@ -97,7 +101,7 @@ BooleanLiteral
   ;
 
 Identifier
-  : [a-zA-Z]+ ([a-zA-Z])*
+  : Letter (Letter)*
   ;
 
 primitiveType
