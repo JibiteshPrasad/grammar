@@ -5,6 +5,8 @@ public class FieldBean {
 	private String modifier;
 	private String type;
 	private String name;
+	private String colname;
+	private String colnumber;
 	
 	public String getModifier() {
 		return modifier;
@@ -24,6 +26,17 @@ public class FieldBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+	public String getColname() {
+		return colname;
+	}
+	public void setColname(String colname) {
+		this.colname = colname;
+	}
+	public String getColnumber() {
+		return colnumber;
+	}
+	public void setColnumber(String colnumber) {
+		this.colnumber = colnumber;
+	}
 
 }

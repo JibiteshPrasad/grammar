@@ -6,6 +6,7 @@ import org.gb.cdl.generator.beans.FieldBean;
 import org.gb.cdl.generator.beans.ModelBean;
 import org.gb.cdl.grammar.CDLv1BaseListener;
 import org.gb.cdl.grammar.CDLv1Parser;
+import org.gb.cdl.grammar.CDLv1Parser.AnnotationContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -35,8 +36,8 @@ public class ModelListener extends CDLv1BaseListener{
 
 	@Override 
 	public void enterElementValuePair(CDLv1Parser.ElementValuePairContext ctx) {
-		String text = ctx.getText();
 		if ( this.annotationname.equals("File")){
+			String text = ctx.getText();
 			String[] kv = text.split("=");
 			if ( kv[0].equals("Name") ) {
 				logger.debug("Setting filepath to: " + kv[1]);
@@ -47,16 +48,30 @@ public class ModelListener extends CDLv1BaseListener{
 				model.getAnnotations().setDelimiter(kv[1]);
 			}
 		}
-		logger.debug("Annotation Value: " + text);
 	}
 	
 	@Override 
 	public void enterFieldDeclaration(CDLv1Parser.FieldDeclarationContext ctx) { 
+		FieldBean field = new FieldBean();
 		TokenStream ts = parser.getTokenStream();
 		String fieldtype = ts.getText(ctx.primitiveType());
 		String fieldname = ctx.Identifier().toString();
+		AnnotationContext ac = ctx.annotation();
+		String aname = ac.annotationName().getText();
+		if(aname.equals("Column")){
+			logger.debug("<========= CURRENT ==============>");
+			String kvs = ac.elementValuePairs().elementValuePair().get(0).getText();
+			String[] kv = kvs.split("=");
+			if (kv[0].equals("Number")){
+				field.setColnumber(kv[1]);
+				logger.debug("Column Number: " + kv[1]); 
+			}
+			if (kv[0].equals("Name")){
+				field.setColname(kv[1]);
+				logger.debug("Column Name: " + kv[1]);
+			}
+		}
 		
-		FieldBean field = new FieldBean();
 		field.setModifier("private");
 		field.setName(fieldname);
 		field.setType(fieldtype);
@@ -68,7 +83,9 @@ public class ModelListener extends CDLv1BaseListener{
 	
 	@Override 
 	public void enterModelDeclaration(CDLv1Parser.ModelDeclarationContext ctx) { 
-		
+		String modeltype = ctx.Identifier().toString();
+		model.setModelname(modeltype);
+		logger.debug("Model Type: " + modeltype);
 	}
 
 }

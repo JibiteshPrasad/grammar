@@ -1,5 +1,5 @@
-package org.gb.cdl.grammar;
 // Generated from CDLv1.g4 by ANTLR 4.0
+package org.gb.cdl.grammar;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.Token;
