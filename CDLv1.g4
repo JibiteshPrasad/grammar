@@ -34,7 +34,7 @@ fieldDeclarationList
     ;
 
 fieldDeclaration
-    : (primitiveType) Identifier LINE_TERMINATOR
+    : (annotation)? primitiveType Identifier LINE_TERMINATOR
     ;
 
 
