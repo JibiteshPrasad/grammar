@@ -11,7 +11,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import org.gb.cdl.generator.CDLPortal;
 import org.gb.cdl.generator.ModelGenerator;
-import org.gb.cdl.generator.beans.FieldBean;
+import org.gb.cdl.generator.beans.MapperBean;
 import org.gb.cdl.generator.beans.ModelBean;
 import org.gb.cdl.grammar.CDLv1Lexer;
 import org.gb.cdl.grammar.CDLv1Parser;
@@ -19,48 +19,19 @@ import org.gb.cdl.listeners.ModelListener;
 
 public class MyTestClass {
 	
-	public static void testModelListener(){
-		String inputFile = "/home/neo/capone/grammar/input/model.rg";
-		try {
-			InputStream is = new FileInputStream(inputFile);
-			ANTLRInputStream ais = new ANTLRInputStream(is);
-			CDLv1Lexer lexer = new CDLv1Lexer(ais);
-			CommonTokenStream cts = new CommonTokenStream(lexer);
-			CDLv1Parser parser = new CDLv1Parser(cts);
-			ParseTree ptree = parser.model();
-			
-			ParseTreeWalker ptw = new ParseTreeWalker();
-			ModelListener ml = new ModelListener(parser);
-			ptw.walk(ml, ptree);
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
-	}
 	
-	public static void testModelGenerator(ModelBean mb){
-//		ModelBean mb = new ModelBean();
-//		mb.setModelname("MyModel");
-//		FieldBean fb = new FieldBean();
-//		fb.setModifier("private");
-//		fb.setName("field1");
-//		fb.setType("int");
-//		mb.addField(fb);
-		ModelGenerator.generateCode(mb);
-	}
 
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		testModelListener();
+		ModelTest.testModelListener();
 		ModelBean mb = CDLPortal.getModelBean();
+//		ModelTest.testModelGenerator(mb);
 		
-		testModelGenerator(mb);
-
+		MapperTest.testMapperListener();
+		MapperBean mb1 = CDLPortal.getMapperBean();
+		MapperTest.testMapperGenerator(mb1 ,mb);
 	}
 
 }
