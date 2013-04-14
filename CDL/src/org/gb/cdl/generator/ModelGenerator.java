@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.gb.cdl.generator.beans.FieldBean;
 import org.gb.cdl.generator.beans.ModelBean;
+import org.gb.cdl.source.Column;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +14,7 @@ import com.sun.codemodel.JClassAlreadyExistsException;
 import com.sun.codemodel.JCodeModel;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JDocComment;
+import com.sun.codemodel.JFieldRef;
 import com.sun.codemodel.JFieldVar;
 import com.sun.codemodel.JMethod;
 import com.sun.codemodel.JMod;
@@ -34,7 +36,7 @@ public class ModelGenerator {
 				addGetterSetter( jc, bean );
 			}
 
-			jcm.build(new File("/home/neo/capone/output/"));
+			jcm.build(new File("E:/antlr/dsl/capone/grammar/CDL/output"));
 		} catch (JClassAlreadyExistsException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -46,7 +48,8 @@ public class ModelGenerator {
 		Class<?> clazz = getClass(fb.getType());
 		String fieldname = fb.getName();
 		int modifier = fb.getModifier() == null ? JMod.PRIVATE : getModifier(fb.getModifier());
-		jc.field(modifier, clazz, fieldname);
+		JFieldVar field = jc.field(modifier, clazz, fieldname);
+		field.annotate(Column.class).param("Number", Integer.parseInt(fb.getColnumber()));
 	}
 
 	private static void addGetterSetter(JDefinedClass jc, FieldBean fb ){
