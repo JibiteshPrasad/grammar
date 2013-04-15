@@ -14,5 +14,4 @@ model Person{
 	@Column(Number=6)
 	String sex;
 	
-	int maxValue = 6666;
 }
