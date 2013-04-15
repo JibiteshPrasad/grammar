@@ -13,6 +13,7 @@ import org.gb.cdl.generator.CDLPortal;
 import org.gb.cdl.generator.ModelGenerator;
 import org.gb.cdl.generator.beans.MapperBean;
 import org.gb.cdl.generator.beans.ModelBean;
+import org.gb.cdl.generator.beans.ReducerBean;
 import org.gb.cdl.grammar.CDLv1Lexer;
 import org.gb.cdl.grammar.CDLv1Parser;
 import org.gb.cdl.listeners.ModelListener;
@@ -26,12 +27,16 @@ public class MyTestClass {
 	 */
 	public static void main(String[] args) {
 		ModelTest.testModelListener();
-		ModelBean mb = CDLPortal.getModelBean();
+		ModelBean model = CDLPortal.getModelBean();
 //		ModelTest.testModelGenerator(mb);
+//		
+//		MapperTest.testMapperListener();
+//		MapperBean mb1 = CDLPortal.getMapperBean();
+//		MapperTest.testMapperGenerator(mb1 ,model);
 		
-		MapperTest.testMapperListener();
-		MapperBean mb1 = CDLPortal.getMapperBean();
-		MapperTest.testMapperGenerator(mb1 ,mb);
+		ReducerTest.testReducerListener();
+		ReducerBean reducer = CDLPortal.getReducerBean();
+		ReducerTest.testReducerGenerator(reducer, model);
 	}
 
 }

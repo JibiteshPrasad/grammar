@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import org.gb.cdl.generator.beans.FieldBean;
 import org.gb.cdl.generator.beans.ModelBean;
-import org.gb.cdl.source.Column;
+import org.gb.cdl.util.Column;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

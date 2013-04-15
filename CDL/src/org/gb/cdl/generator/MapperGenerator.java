@@ -2,10 +2,6 @@ package org.gb.cdl.generator;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.Serializable;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.hadoop.io.IntWritable;
@@ -18,8 +14,6 @@ import org.gb.cdl.generator.beans.FunctionBean;
 import org.gb.cdl.generator.beans.IfCondition;
 import org.gb.cdl.generator.beans.MapperBean;
 import org.gb.cdl.generator.beans.ModelBean;
-import org.gb.cdl.grammar.CDLMRv1Parser.FunctionBodyContext;
-import org.gb.cdl.source.Column;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,7 +25,6 @@ import com.sun.codemodel.JConditional;
 import com.sun.codemodel.JDefinedClass;
 import com.sun.codemodel.JDocComment;
 import com.sun.codemodel.JExpr;
-import com.sun.codemodel.JExpression;
 import com.sun.codemodel.JMethod;
 import com.sun.codemodel.JMod;
 import com.sun.codemodel.JPackage;
@@ -39,7 +32,7 @@ import com.sun.codemodel.JVar;
 
 public class MapperGenerator {
 
-	private static final Logger logger = LoggerFactory.getLogger(ModelGenerator.class);
+	private static final Logger logger = LoggerFactory.getLogger(MapperGenerator.class);
 
 	public static void generateCode( MapperBean mapper, ModelBean model){
 		JCodeModel jcm = new JCodeModel();
