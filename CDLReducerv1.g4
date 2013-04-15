@@ -3,9 +3,9 @@
  * and open the template in the editor.
  */
 
-grammar CDLMRv1;
+grammar CDLReducerv1;
 
-mapreduce
+reduce
     : maporreduce? (functionDeclaration)* EOF
     ;
 
@@ -95,6 +95,10 @@ returnStatement
     : 'return' expression? ';'
     ;
 
+staticFunctionCall
+    : 'sfunction.' Identifier '(' paramlist ')'
+    ;
+
 functionCall
     : 'function.' Identifier '(' paramlist ')'
     ;
@@ -116,6 +120,7 @@ returnType
 expression
   : '(' expression ')'
   | functionCall
+  | staticFunctionCall
   | expression '.' Identifier              // Should be invoked as Context.FunctionName
   | expression '[' expression ']'
   | expression '(' expressionList? ')'
@@ -163,6 +168,8 @@ primitiveType
     | 'float'
     | 'double'
     | 'String'
+    | 'Text'
+    | 'IntWritable'
     ;
 
 MUL 
