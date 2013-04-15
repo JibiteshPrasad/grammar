@@ -32,6 +32,7 @@ public class ModelGenerator {
 			JDocComment jdoccomment = jc.javadoc();
 			jdoccomment.add("Warning: Generated File. Should not be played with!");
 			for ( FieldBean bean : model.getFields() ){
+				logger.debug("Adding field: " + bean.getName());
 				addField( jc, bean );
 				addGetterSetter( jc, bean );
 			}
@@ -49,7 +50,9 @@ public class ModelGenerator {
 		String fieldname = fb.getName();
 		int modifier = fb.getModifier() == null ? JMod.PRIVATE : getModifier(fb.getModifier());
 		JFieldVar field = jc.field(modifier, clazz, fieldname);
-		field.annotate(Column.class).param("Number", Integer.parseInt(fb.getColnumber()));
+		if( fb.getColnumber() != null ){
+			field.annotate(Column.class).param("Number", Integer.parseInt(fb.getColnumber()));
+		}
 	}
 
 	private static void addGetterSetter(JDefinedClass jc, FieldBean fb ){
