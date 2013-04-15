@@ -49,7 +49,7 @@ public class ModelListener extends CDLv1BaseListener{
 			}
 		}
 	}
-	
+
 	@Override 
 	public void enterFieldDeclaration(CDLv1Parser.FieldDeclarationContext ctx) { 
 		FieldBean field = new FieldBean();
@@ -57,30 +57,32 @@ public class ModelListener extends CDLv1BaseListener{
 		String fieldtype = ts.getText(ctx.primitiveType());
 		String fieldname = ctx.Identifier().toString();
 		AnnotationContext ac = ctx.annotation();
-		String aname = ac.annotationName().getText();
-		if(aname.equals("Column")){
-			logger.debug("<========= CURRENT ==============>");
-			String kvs = ac.elementValuePairs().elementValuePair().get(0).getText();
-			String[] kv = kvs.split("=");
-			if (kv[0].equals("Number")){
-				field.setColnumber(kv[1]);
-				logger.debug("Column Number: " + kv[1]); 
-			}
-			if (kv[0].equals("Name")){
-				field.setColname(kv[1]);
-				logger.debug("Column Name: " + kv[1]);
+		String aname = null;
+		if( ac != null ){
+			aname = ac.annotationName().getText();
+			if(aname.equals("Column")){
+				logger.debug("<========= CURRENT ==============>");
+				String kvs = ac.elementValuePairs().elementValuePair().get(0).getText();
+				String[] kv = kvs.split("=");
+				if (kv[0].equals("Number")){
+					field.setColnumber(kv[1]);
+					logger.debug("Column Number: " + kv[1]); 
+				}
+				if (kv[0].equals("Name")){
+					field.setColname(kv[1]);
+					logger.debug("Column Name: " + kv[1]);
+				}
 			}
 		}
-		
 		field.setModifier("private");
 		field.setName(fieldname);
 		field.setType(fieldtype);
-		
+
 		model.addField(field);
 		logger.debug("Type: " + fieldtype);
 		logger.debug("Identifier: " + fieldname);
 	}
-	
+
 	@Override 
 	public void enterModelDeclaration(CDLv1Parser.ModelDeclarationContext ctx) { 
 		String modeltype = ctx.Identifier().toString();
